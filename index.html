@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+    <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .main{
+            background-color: black;
+            color: antiquewhite;
+            height: auto;
+            width: 320px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .btn{
+            height: auto;
+            width: 65px;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="#" name="calculator" class="main">
+                    <input type="button" class="btn btn-dark" value="Mode" onclick="toggleMode()"><br><br>
+                    
+                    <input type="text" class="display form-control" name="display" id="display"><br>
+
+                    <input type="button" class="btn btn-dark" value="AC" onclick="clearDisplay()">
+                    <input type="button" class="btn btn-dark ml-3" value="+/-" onclick="toggleSign()">
+                    <input type="button" class="btn btn-dark ml-3" value="%" onclick="append('%')">
+                    <input type="button" class="btn btn-dark ml-3" value="/" onclick="append('/')"><br><br>
+
+                    <input type="button" class="btn btn-dark" value="7" onclick="append('7')">
+                    <input type="button" class="btn btn-dark ml-3" value="8" onclick="append('8')">
+                    <input type="button" class="btn btn-dark ml-3" value="9" onclick="append('9')">
+                    <input type="button" class="btn btn-dark ml-3" value="*" onclick="append('*')"><br><br>
+
+                    <input type="button" class="btn btn-dark" value="4" onclick="append('4')">
+                    <input type="button" class="btn btn-dark ml-3" value="5" onclick="append('5')">
+                    <input type="button" class="btn btn-dark ml-3" value="6" onclick="append('6')">
+                    <input type="button" class="btn btn-dark ml-3" value="-" onclick="append('-')"><br><br>
+
+                    <input type="button" class="btn btn-dark" value="1" onclick="append('1')">
+                    <input type="button" class="btn btn-dark ml-3" value="2" onclick="append('2')">
+                    <input type="button" class="btn btn-dark ml-3" value="3" onclick="append('3')">
+                    <input type="button" class="btn btn-dark ml-3" value="+" onclick="append('+')"><br><br>
+
+                    <input type="button" class="btn btn-dark" value="C" onclick="clearLastEntry()">
+                    <input type="button" class="btn btn-dark ml-3" value="0" onclick="append('0')">
+                    <input type="button" class="btn btn-dark ml-3" value="." onclick="append('.')">
+                    <input type="button" class="btn btn-dark ml-3" value="=" onclick="calculate()"><br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    var display = document.getElementById('display');
+    var isDarkMode = true; // Default mode is dark
+
+    function toggleMode() {
+        isDarkMode = !isDarkMode;
+        updateMode();
+    }
+
+    function updateMode() {
+        var container = document.querySelector('.main');
+        var buttons = document.querySelectorAll('.btn');
+
+        if (isDarkMode) {
+            container.style.backgroundColor = 'black';
+            container.style.color = 'antiquewhite';
+            buttons.forEach(function (button) {
+                button.classList.remove('btn-light');
+                button.classList.add('btn-dark');
+            });
+        } else {
+            container.style.backgroundColor = 'white';
+            container.style.color = 'black';
+            buttons.forEach(function (button) {
+                button.classList.remove('btn-dark');
+                button.classList.add('btn-light');
+            });
+        }
+    }
+
+    function append(value) {
+        display.value += value;
+    }
+
+    function clearDisplay() {
+        display.value = '';
+    }
+
+    function clearLastEntry() {
+        display.value = display.value.slice(0, -1);
+    }
+
+    function toggleSign() {
+        display.value = display.value.startsWith('-') ? display.value.slice(1) : '-' + display.value;
+    }
+
+    function calculate() {
+        try {
+            display.value = eval(display.value);
+        } catch (error) {
+            display.value = 'Error';
+        }
+    }
+</script>
+</body>
+</html>
